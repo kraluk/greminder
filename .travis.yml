@@ -19,7 +19,7 @@ before_install:
 
 script:
   - ./gradlew clean
-  - ./gradlew build --stacktrace
+  - ./gradlew build --info
   - ./gradlew jacocoTestReport
 
 after_success:
