@@ -1,11 +1,6 @@
 language: java
+sudo: false
 
-script: ./gradlew build jacocoTestReport
-
-addons:
-  apt:
-    packages:
-      - oracle-java8-installer
 jdk:
   - oraclejdk8
 
@@ -16,6 +11,11 @@ branches:
 before_install:
   - chmod +x gradlew
   - ./gradlew wrapper
+
+script:
+  - ./gradlew clean
+  - ./gradlew build
+  - ./gradlew jacocoTestReport
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
