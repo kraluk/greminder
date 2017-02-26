@@ -1,0 +1,71 @@
+buildscript {
+
+    ext {
+        springBootVersion = '1.5.1.RELEASE'
+    }
+
+    repositories {
+        mavenCentral()
+
+        maven {
+            url 'https://plugins.gradle.org/m2/'
+        }
+    }
+
+    dependencies {
+        classpath group: 'org.springframework.boot', name: 'spring-boot-gradle-plugin', version: "${springBootVersion}"
+        classpath group: 'net.ltgt.gradle', name: 'gradle-apt-plugin', version: '0.9'
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'groovy'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'net.ltgt.apt'
+
+jar {
+    baseName = 'greminder'
+    version = '0.0.1-SNAPSHOT'
+}
+
+group = 'com.kraluk.greminder'
+project.version = '1.0.0-SNAPSHOT'
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+
+repositories {
+    mavenCentral()
+    jcenter()
+
+    mavenLocal()
+}
+
+dependencies {
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-aop'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web'
+
+    compile group: 'com.google.guava', name: 'guava', version: '20.0'
+
+    compile group: 'com.google.api-client', name: 'google-api-client', version: '1.22.0'
+    compile group: 'com.google.oauth-client', name: 'google-oauth-client-jetty', version: '1.22.0'
+    compile group: 'com.google.apis', name: 'google-api-services-calendar', version: 'v3-rev235-1.22.0'
+
+    compile group: 'org.mapstruct', name: 'mapstruct-jdk8', version: '1.2.0.Beta1'
+    apt group: 'org.mapstruct', name: 'mapstruct-processor', version: '1.2.0.Beta1'
+
+    runtime group: 'org.springframework.boot', name: 'spring-boot-devtools'
+    runtime group: 'com.squareup', name: 'javapoet', version: '1.8.0'
+
+    compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.16.14'
+    apt group: 'org.projectlombok', name: 'lombok', version: '1.16.14'
+
+    testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test'
+    testCompile group: 'org.mockito', name: 'mockito-core', version: '2.7.11'
+    testCompile group: 'org.assertj', name: 'assertj-core', version: '3.6.2'
+
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '3.4'
+}
