@@ -28,7 +28,7 @@ public class MaintenanceResource {
 
     @RequestMapping(path = "/ping", method = RequestMethod.GET)
     public String ping(HttpServletRequest request) {
-        Optional<String> ipAddress = Optional.of(request.getHeader(FORWARD_HEADER));
+        Optional<String> ipAddress = Optional.ofNullable(request.getHeader(FORWARD_HEADER));
 
         log.debug("Invoked by '{}'", ipAddress.orElse(request.getRemoteAddr()));
         long pong = counter.addAndGet(1);
