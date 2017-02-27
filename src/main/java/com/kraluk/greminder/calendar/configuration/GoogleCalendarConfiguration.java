@@ -12,6 +12,7 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.api.services.calendar.Calendar;
 import com.google.api.services.calendar.CalendarScopes;
+import com.kraluk.greminder.util.AppProfile;
 import com.kraluk.greminder.util.Version;
 
 import lombok.extern.slf4j.Slf4j;
@@ -19,6 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -34,6 +36,7 @@ import java.util.List;
  * @author lukasz
  */
 @Configuration
+@Profile(AppProfile.PRODUCTION)
 @Slf4j
 public class GoogleCalendarConfiguration {
     private static final String ACCESS_TYPE = "offline";
