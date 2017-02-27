@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.Optional;
+import java.util.concurrent.atomic.AtomicLong;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -22,14 +23,15 @@ import javax.servlet.http.HttpServletRequest;
 public class MaintenanceResource {
     private static final String FORWARD_HEADER = "X-FORWARDED-FOR";
 
-    private final AtomicInteger counter = new AtomicInteger(0);
+    // Just for DEV purposes, in prod environment could be potentially dangerous
+    private final AtomicLong counter = new AtomicLong(0);
 
     @RequestMapping(path = "/ping", method = RequestMethod.GET)
     public String ping(HttpServletRequest request) {
-        String ipAddress = request.getHeader(FORWARD_HEADER);
+        Optional<String> ipAddress = Optional.of(request.getHeader(FORWARD_HEADER));
 
-        log.debug("Invoked by '{}'", ipAddress == null ? request.getRemoteAddr() : ipAddress);
-        int pong = counter.addAndGet(1);
+        log.debug("Invoked by '{}'", ipAddress.orElse(request.getRemoteAddr()));
+        long pong = counter.addAndGet(1);
         log.debug("Returning pong '{}'...", pong);
 
         return String.format("pong (%s)", pong);

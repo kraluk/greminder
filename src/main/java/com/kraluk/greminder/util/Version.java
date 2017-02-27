@@ -3,7 +3,7 @@ package com.kraluk.greminder.util;
 import lombok.experimental.UtilityClass;
 
 /**
- * TODO: comment me, please!
+ * Simple dummy Version class
  *
  * @author lukasz
  */

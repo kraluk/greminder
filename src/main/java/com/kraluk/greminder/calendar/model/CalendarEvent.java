@@ -1,4 +1,4 @@
-package com.kraluk.greminder.model;
+package com.kraluk.greminder.calendar.model;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * Simple Calendar Event model
+ * Simple Calendar Event model used in the application
  *
  * @author lukasz
  */
