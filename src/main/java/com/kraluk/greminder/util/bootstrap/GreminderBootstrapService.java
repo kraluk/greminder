@@ -14,7 +14,7 @@ import static com.kraluk.greminder.util.AppProfile.DEVELOPMENT;
 import static com.kraluk.greminder.util.AppProfile.PRODUCTION;
 
 /**
- * Greminder's bootstrap service which checks basic preconditions to start the application
+ * Greminder's bootstrap service which checks basic preconditions required to start the application
  *
  * @author lukasz
  */

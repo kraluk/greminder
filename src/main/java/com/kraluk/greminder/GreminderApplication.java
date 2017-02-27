@@ -15,7 +15,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableAsync
 public class GreminderApplication {
 
-    public static void main(String[] args) {
+    public static void main(String... args) {
         SpringApplication.run(GreminderApplication.class, args);
     }
 }
