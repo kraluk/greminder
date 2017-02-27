@@ -36,6 +36,3 @@ target/
 build/
 .gradletasknamecache
 !gradle/wrapper/gradle-wrapper.jar
-
-# App specifics
-application.properties
