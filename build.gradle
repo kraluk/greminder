@@ -1,7 +1,7 @@
 buildscript {
 
     ext {
-        springBootVersion = '1.5.1.RELEASE'
+        springBootVersion = '1.5.2.RELEASE'
     }
 
     repositories {
@@ -79,7 +79,7 @@ dependencies {
 
     // Test stuff
     testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test'
-    testCompile group: 'org.mockito', name: 'mockito-core', version: '2.7.11'
+    testCompile group: 'org.mockito', name: 'mockito-core', version: '2.7.12'
     testCompile group: 'org.assertj', name: 'assertj-core', version: '3.6.2'
 
 }
