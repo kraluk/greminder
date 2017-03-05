@@ -7,9 +7,7 @@ buildscript {
     repositories {
         mavenCentral()
 
-        maven {
-            url 'https://plugins.gradle.org/m2/'
-        }
+        maven { url 'https://plugins.gradle.org/m2/' }
     }
 
     dependencies {
@@ -40,6 +38,8 @@ repositories {
     mavenCentral()
     jcenter()
 
+    maven { url 'http://labs.smsapi.com/maven/' }
+
     mavenLocal()
 }
 
@@ -59,6 +59,7 @@ dependencies {
     // Utils
     compile group: 'io.javaslang', name: 'javaslang', version: '2.0.5'
     compile group: 'com.google.guava', name: 'guava', version: '21.0'
+    compile group: 'pl.smsapi', name: 'smsapi-lib', version: '2.3'
 
     // Google Calendar API
     compile group: 'com.google.api-client', name: 'google-api-client', version: '1.22.0'
