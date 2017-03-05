@@ -47,6 +47,7 @@ class GoogleCalendarService implements CalendarService {
         log.debug("Instance created.");
     }
 
+    @Override
     public List<Event> getEvents() {
         Date currentDate = new Date();
 
