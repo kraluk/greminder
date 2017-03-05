@@ -10,19 +10,19 @@ import org.junit.Test;
 import static org.mockito.Mockito.mock;
 
 /**
- * Test suite for class {@link CalendarService}
+ * Test suite for class {@link GoogleCalendarService}
  *
  * @author lukasz
  */
 public class CalendarServiceTests extends AbstractNonCalendarRelatedTests {
 
-    private CalendarService calendarService;
+    private GoogleCalendarService calendarService;
 
     @Before
     public void setUp() {
         calendar = mock(Calendar.class);
 
-        calendarService = new CalendarService(calendar, "test");
+        calendarService = new GoogleCalendarService(calendar, "test");
     }
 
     @Ignore

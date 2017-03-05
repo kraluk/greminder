@@ -1,66 +1,9 @@
 package com.kraluk.greminder.calendar;
 
-import com.google.api.client.util.DateTime;
-import com.google.api.services.calendar.Calendar;
-import com.google.api.services.calendar.model.Event;
-import com.google.api.services.calendar.model.Events;
-import com.kraluk.greminder.common.exception.GreminderException;
-
-import lombok.extern.slf4j.Slf4j;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.stereotype.Service;
-
-import java.time.temporal.ChronoUnit;
-import java.util.Date;
-import java.util.List;
-
-import javax.annotation.PostConstruct;
-
 /**
- * Provides Google Calendar features and manipulation on it
+ * Provides all necessary methods to work with web-based Calendars
  *
  * @author lukasz
  */
-@Service
-@Lazy
-@Slf4j
-public class CalendarService {
-    private final static int DEFAULT_HOUR_INTERVAL = 24;
-
-    private final Calendar calendar;
-    private final String calendarName;
-
-    @Autowired
-    public CalendarService(Calendar calendar, @Value("${calendar.name}") String calendarName) {
-        this.calendar = calendar;
-        this.calendarName = calendarName;
-    }
-
-    @PostConstruct
-    public void init() {
-        log.debug("Instance created.");
-    }
-
-    public List<Event> getEvents() {
-        Date currentDate = new Date();
-
-        DateTime minTime = new DateTime(currentDate);
-        DateTime maxTime = new DateTime(
-            currentDate.toInstant().plus(DEFAULT_HOUR_INTERVAL, ChronoUnit.HOURS).toEpochMilli());
-
-        try {
-            Events events = calendar.events()
-                .list(calendarName)
-                .setTimeMin(minTime)
-                .setTimeMax(maxTime)
-                .execute();
-
-            return events.getItems();
-        } catch (Exception e) {
-            throw new GreminderException("Unable to obtain Calendar's events!", e);
-        }
-    }
+public interface CalendarService {
 }

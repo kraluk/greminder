@@ -26,7 +26,7 @@ import static com.kraluk.greminder.util.AppProfile.PRODUCTION;
 @Profile(PRODUCTION)
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 @Slf4j
-public class SmsApiSender implements SmsSender {
+class SmsApiSender implements SmsSender {
     private static final String SMS_TYPE = "ECO";
     private static final String SMS_TEMPLATE = "[Reminder] %s";
 

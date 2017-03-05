@@ -18,7 +18,7 @@ import static com.kraluk.greminder.util.AppProfile.TEST;
 @Service
 @Profile({DEVELOPMENT, TEST})
 @Slf4j
-public class LogSmsSender implements SmsSender {
+class LogSmsSender implements SmsSender {
 
     @Override
     public String send(String to, String content) {
