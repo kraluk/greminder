@@ -46,7 +46,7 @@ public class GreminderBootstrapService implements InitializingBean {
         }
 
         if (!profiles.contains(PRODUCTION)) {
-            log.warn("Application is running using a NOT production profile.");
+            log.warn("Application is running in a NON production profile.");
         }
     }
 }
