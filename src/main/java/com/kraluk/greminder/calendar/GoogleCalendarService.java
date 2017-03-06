@@ -2,8 +2,9 @@ package com.kraluk.greminder.calendar;
 
 import com.google.api.client.util.DateTime;
 import com.google.api.services.calendar.Calendar;
-import com.google.api.services.calendar.model.Event;
 import com.google.api.services.calendar.model.Events;
+import com.kraluk.greminder.calendar.model.CalendarEvent;
+import com.kraluk.greminder.calendar.util.EventMapper;
 import com.kraluk.greminder.common.exception.GreminderException;
 
 import lombok.extern.slf4j.Slf4j;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 
@@ -50,7 +52,7 @@ class GoogleCalendarService implements CalendarService {
     }
 
     @Override
-    public List<Event> getEvents() {
+    public List<CalendarEvent> getEvents() {
         Date currentDate = new Date();
 
         DateTime minTime = new DateTime(currentDate);
@@ -61,9 +63,12 @@ class GoogleCalendarService implements CalendarService {
             .list(calendarName)
             .setTimeMin(minTime)
             .setTimeMax(maxTime)
-            .execute())
-            .getOrElseThrow(e -> new GreminderException("Unable to obtain Calendar's events!", e));
+            .execute()
+        ).getOrElseThrow(e -> new GreminderException("Unable to obtain Calendar's events!", e));
 
-        return events.getItems();
+        return events.getItems()
+            .stream()
+            .map(EventMapper::map)
+            .collect(Collectors.toList());
     }
 }

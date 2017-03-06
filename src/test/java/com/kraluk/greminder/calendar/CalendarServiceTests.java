@@ -14,6 +14,7 @@ import static org.mockito.Mockito.mock;
  *
  * @author lukasz
  */
+// TODO: refactor!
 public class CalendarServiceTests {
 
     private GoogleCalendarService calendarService;

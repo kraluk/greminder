@@ -1,6 +1,6 @@
 package com.kraluk.greminder.calendar;
 
-import com.google.api.services.calendar.model.Event;
+import com.kraluk.greminder.calendar.model.CalendarEvent;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -30,7 +30,7 @@ class DummyCalendarService implements CalendarService {
     }
 
     @Override
-    public List<Event> getEvents() {
+    public List<CalendarEvent> getEvents() {
         throw new UnsupportedOperationException("Not implemented yet!");
     }
 }

@@ -1,6 +1,6 @@
 package com.kraluk.greminder.calendar;
 
-import com.google.api.services.calendar.model.Event;
+import com.kraluk.greminder.calendar.model.CalendarEvent;
 
 import java.util.List;
 
@@ -11,5 +11,5 @@ import java.util.List;
  */
 public interface CalendarService {
 
-    List<Event> getEvents();
+    List<CalendarEvent> getEvents();
 }
