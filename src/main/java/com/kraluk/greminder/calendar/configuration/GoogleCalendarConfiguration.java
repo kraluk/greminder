@@ -12,7 +12,6 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.api.services.calendar.Calendar;
 import com.google.api.services.calendar.CalendarScopes;
-import com.kraluk.greminder.util.AppProfile;
 import com.kraluk.greminder.util.Version;
 
 import lombok.extern.slf4j.Slf4j;
@@ -30,13 +29,15 @@ import java.security.GeneralSecurityException;
 import java.util.Collections;
 import java.util.List;
 
+import static com.kraluk.greminder.util.AppProfile.PRODUCTION;
+
 /**
  * Google Calendar Configuration class
  *
  * @author lukasz
  */
 @Configuration
-@Profile(AppProfile.PRODUCTION)
+@Profile(PRODUCTION)
 @Slf4j
 public class GoogleCalendarConfiguration {
     private static final String ACCESS_TYPE = "offline";

@@ -1,5 +1,6 @@
 package com.kraluk.greminder.util.bootstrap;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.InitializingBean;
@@ -19,15 +20,11 @@ import static com.kraluk.greminder.util.AppProfile.PRODUCTION;
  * @author lukasz
  */
 @Service
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 @Slf4j
 public class GreminderBootstrapService implements InitializingBean {
 
     private final Environment environment;
-
-    @Autowired
-    public GreminderBootstrapService(Environment environment) {
-        this.environment = environment;
-    }
 
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -46,6 +43,10 @@ public class GreminderBootstrapService implements InitializingBean {
             throw new IllegalStateException(
                 String.format("Its illegal to start application with both '%s' and '%s' profiles!",
                     DEVELOPMENT, PRODUCTION));
+        }
+
+        if (!profiles.contains(PRODUCTION)) {
+            log.warn("Application is running using a NOT production profile.");
         }
     }
 }

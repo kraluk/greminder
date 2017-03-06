@@ -14,7 +14,7 @@ public class GreminderApplicationTests {
     @Test
     public void testContextLoads() {
         try {
-            GreminderApplication.main();
+            GreminderApplication.main("--spring.profiles.active=test");
         } catch (Exception e) {
             fail(e.getMessage());
         }

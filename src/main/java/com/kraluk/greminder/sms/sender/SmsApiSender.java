@@ -13,7 +13,8 @@ import org.springframework.stereotype.Service;
 import pl.smsapi.api.SmsFactory;
 import pl.smsapi.api.action.sms.SMSSend;
 import pl.smsapi.api.response.SendStatusResponse;
-import pl.smsapi.exception.SmsapiException;
+
+import javaslang.control.Try;
 
 import static com.kraluk.greminder.util.AppProfile.PRODUCTION;
 
@@ -34,26 +35,24 @@ class SmsApiSender implements SmsSender {
 
     @Override
     public String send(String to, String content) {
-        try {
-            log.info("Attempting to send a message to '{}'", to);
+        return Try.of(() -> {
+                log.info("Attempting to send a message to '{}'", to);
 
-            String text = String.format(SMS_TEMPLATE, content);
-            checkMessageSize(text);
+                String text = String.format(SMS_TEMPLATE, content);
+                checkMessageSize(text);
 
-            SMSSend action = smsFactory.actionSend()
-                .setText(text)
-                .setTo(to)
-                .setSender(SMS_TYPE);
+                SMSSend action = smsFactory.actionSend()
+                    .setText(text)
+                    .setTo(to)
+                    .setSender(SMS_TYPE);
 
-            SendStatusResponse response = action.execute();
-            String status = SmsResponseUtils.getPrettyResponse(response);
+                SendStatusResponse response = action.execute();
+                String status = SmsResponseUtils.getPrettyResponse(response);
 
-            log.info("Message sended successfully with status '{}'", status);
+                log.info("Message sended successfully with status '{}'", status);
 
-            return status;
-
-        } catch (SmsapiException e) {
-            throw new SmsSendingException("Unable to send a Text Message!", e);
-        }
+                return status;
+            }
+        ).getOrElseThrow(e -> new SmsSendingException("Unable to send a Text Message!", e));
     }
 }

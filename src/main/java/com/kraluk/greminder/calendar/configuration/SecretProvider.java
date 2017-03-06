@@ -24,8 +24,8 @@ class SecretProvider {
     private final String secretPath;
 
     @Autowired
-    public SecretProvider(ApplicationContext applicationContext,
-                          @Value("${calendar.dir.secret}") String secretPath) {
+    SecretProvider(ApplicationContext applicationContext,
+                   @Value("${calendar.dir.secret}") String secretPath) {
         this.applicationContext = applicationContext;
         this.secretPath = secretPath;
     }

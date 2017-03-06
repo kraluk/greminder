@@ -5,6 +5,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
+
 import static com.kraluk.greminder.util.AppProfile.DEVELOPMENT;
 import static com.kraluk.greminder.util.AppProfile.TEST;
 
@@ -20,9 +22,14 @@ import static com.kraluk.greminder.util.AppProfile.TEST;
 @Slf4j
 class LogSmsSender implements SmsSender {
 
+    @PostConstruct
+    public void init() {
+        log.warn("DEV ONLY: dummy instance created.");
+    }
+
     @Override
     public String send(String to, String content) {
-        log.info("Sending SMS to '{}' with content '{}'...", to, content);
+        log.info("Sending the text message to '{}' with content '{}'...", to, content);
 
         checkMessageSize(content);
 

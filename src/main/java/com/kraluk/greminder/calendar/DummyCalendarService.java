@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+
 import static com.kraluk.greminder.util.AppProfile.DEVELOPMENT;
 import static com.kraluk.greminder.util.AppProfile.TEST;
 
@@ -21,6 +23,11 @@ import static com.kraluk.greminder.util.AppProfile.TEST;
 @Profile({DEVELOPMENT, TEST})
 @Slf4j
 class DummyCalendarService implements CalendarService {
+
+    @PostConstruct
+    public void init() {
+        log.warn("DEV ONLY: dummy instance created.");
+    }
 
     @Override
     public List<Event> getEvents() {

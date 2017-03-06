@@ -19,6 +19,8 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 
+import javaslang.control.Try;
+
 import static com.kraluk.greminder.util.AppProfile.PRODUCTION;
 
 /**
@@ -55,16 +57,13 @@ class GoogleCalendarService implements CalendarService {
         DateTime maxTime = new DateTime(
             currentDate.toInstant().plus(DEFAULT_HOUR_INTERVAL, ChronoUnit.HOURS).toEpochMilli());
 
-        try {
-            Events events = calendar.events()
-                .list(calendarName)
-                .setTimeMin(minTime)
-                .setTimeMax(maxTime)
-                .execute();
+        Events events = Try.of(() -> calendar.events()
+            .list(calendarName)
+            .setTimeMin(minTime)
+            .setTimeMax(maxTime)
+            .execute())
+            .getOrElseThrow(e -> new GreminderException("Unable to obtain Calendar's events!", e));
 
-            return events.getItems();
-        } catch (Exception e) {
-            throw new GreminderException("Unable to obtain Calendar's events!", e);
-        }
+        return events.getItems();
     }
 }

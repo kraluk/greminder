@@ -43,6 +43,12 @@ public class SmsSenderIntegrationTests extends AbstractNonCalendarRelatedTests {
     }
 
     @Test
+    public void testEmptyMessageWillNotBeSended() {
+        assertThatThrownBy(() -> smsSender.send("0000000", null))
+            .isInstanceOf(SmsSendingException.class);
+    }
+
+    @Test
     public void testCheckMessageLimitAndThrowAnException() {
         String message = Strings.repeat("X", SmsSender.SMS_SIZE_LIMIT + 1);
 
