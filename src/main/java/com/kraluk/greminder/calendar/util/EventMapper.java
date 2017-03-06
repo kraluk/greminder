@@ -15,7 +15,7 @@ import static com.kraluk.greminder.calendar.util.MapperUtils.convert;
 @UtilityClass
 public final class EventMapper {
 
-    public static CalendarEvent map(Event googleEvent) {
+    public static CalendarEvent map(final Event googleEvent) {
         CalendarEvent calendarEvent = new CalendarEvent();
 
         calendarEvent.setStartDate(convert(googleEvent.getStart().getDateTime()));

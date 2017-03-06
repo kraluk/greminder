@@ -18,7 +18,7 @@ final class MapperUtils {
     /**
      * Converts {@link com.google.api.client.util.DateTime} to JDK standard {@link java.time.LocalDateTime} with default time zone specified by {@link #DEFAULT_TIME_ZONE}
      */
-    static LocalDateTime convert(com.google.api.client.util.DateTime dateTime) {
+    static LocalDateTime convert(final com.google.api.client.util.DateTime dateTime) {
         return LocalDateTime
             .ofInstant(Instant.ofEpochMilli(dateTime.getValue()), DEFAULT_TIME_ZONE);
     }
