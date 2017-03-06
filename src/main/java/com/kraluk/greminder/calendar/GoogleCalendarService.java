@@ -55,7 +55,7 @@ class GoogleCalendarService implements CalendarService {
     public List<CalendarEvent> getEvents() {
         Date currentDate = new Date();
 
-        DateTime minTime = new DateTime(currentDate);
+        DateTime minTime = new DateTime(currentDate); // time zone?
         DateTime maxTime = new DateTime(
             currentDate.toInstant().plus(DEFAULT_HOUR_INTERVAL, ChronoUnit.HOURS).toEpochMilli());
 
