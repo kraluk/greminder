@@ -17,6 +17,13 @@ public interface SmsSender {
 
     int SMS_SIZE_LIMIT = 160;
 
+    /**
+     * Sends a text message to the given number with the given content
+     *
+     * @param to a phone number
+     * @param content a message content
+     * @return a sending status
+     */
     String send(String to, String content);
 
     default void checkMessageSize(String text) {
