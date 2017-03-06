@@ -20,7 +20,7 @@ public interface SmsSender {
     /**
      * Sends a text message to the given number with the given content
      *
-     * @param to a phone number
+     * @param to      a phone number
      * @param content a message content
      * @return a sending status
      */
@@ -34,7 +34,8 @@ public interface SmsSender {
             })),
 
             Case(e -> e.length() > SMS_SIZE_LIMIT, e -> run(() -> {
-                throw new SmsSendingException("Exceeded character limit (160) per message!");
+                throw new SmsSendingException(
+                    String.format("Exceeded character limit (%s) per message!", SMS_SIZE_LIMIT));
             })),
 
             Case($(), () -> null) // bleh, the simplest solution to do nothing?

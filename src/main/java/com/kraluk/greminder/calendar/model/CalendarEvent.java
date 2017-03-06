@@ -1,7 +1,6 @@
 package com.kraluk.greminder.calendar.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -11,12 +10,12 @@ import java.time.LocalDateTime;
  *
  * @author lukasz
  */
-@Getter
-@Setter
+@Data
 public class CalendarEvent implements Serializable {
     private static final long serialVersionUID = 5259056767867235021L;
 
     private String attendee;
+    private String leader;
     private String phoneNumber;
     private String email;
     private String title;

@@ -1,8 +1,8 @@
 package com.kraluk.greminder.calendar;
 
 import com.google.api.services.calendar.Calendar;
-import com.kraluk.greminder.test.base.AbstractNonCalendarRelatedTests;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -14,13 +14,13 @@ import static org.mockito.Mockito.mock;
  *
  * @author lukasz
  */
-public class CalendarServiceTests extends AbstractNonCalendarRelatedTests {
+public class CalendarServiceTests {
 
     private GoogleCalendarService calendarService;
 
     @Before
     public void setUp() {
-        calendar = mock(Calendar.class);
+        Calendar calendar = mock(Calendar.class);
 
         calendarService = new GoogleCalendarService(calendar, "test");
     }
@@ -28,6 +28,11 @@ public class CalendarServiceTests extends AbstractNonCalendarRelatedTests {
     @Ignore
     @Test
     public void testGetEvents() {
-        calendarService.getEvents();
+
+        try {
+            calendarService.getEvents();
+        } catch (Exception e) {
+            Assert.fail(e.getMessage());
+        }
     }
 }
