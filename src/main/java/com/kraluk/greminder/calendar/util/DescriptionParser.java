@@ -24,8 +24,6 @@ final class DescriptionParser {
     private static final Pattern DESCRIPTION_REGEX =
         Pattern.compile("^[a-zA-Z.\\s]+\\|[a-zA-Z.\\s]+\\|[0-9\\s]+$");
 
-    static final String DESCRIPTION_PATTERN = "%s|%s|%s";
-
     /**
      * Parses given string and gets from it some data and puts it to a {@link CalendarEvent} object
      *

@@ -1,12 +1,15 @@
 package com.kraluk.greminder.calendar.util;
 
-import com.google.api.client.util.DateTime;
 import com.google.api.services.calendar.model.Event;
-import com.google.api.services.calendar.model.EventDateTime;
 import com.kraluk.greminder.calendar.model.CalendarEvent;
+import com.kraluk.greminder.test.TestDataProvider;
+import com.kraluk.greminder.util.AppUtils;
 
 import org.junit.Test;
 
+import java.time.ZonedDateTime;
+
+import static java.time.format.DateTimeFormatter.ISO_OFFSET_DATE_TIME;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -19,32 +22,20 @@ public class EventMapperTests {
     @Test
     public void testShouldMap() {
 
-        CalendarEvent event = EventMapper.map(generateEvent());
+        Event googleEvent = TestDataProvider.generateEvent(1);
+        CalendarEvent event = EventMapper.map(googleEvent);
 
         assertThat(event).isNotNull();
         assertThat(event.getLeader()).isEqualTo("Ass. Prof. Leader");
         assertThat(event.getTitle()).isEqualTo("Physics II");
         assertThat(event.getPhoneNumber()).isEqualTo("111222333");
-        assertThat(event.getStartDate().toString()).isEqualTo("2011-11-11T01:00");
-        assertThat(event.getEndDate().toString()).isEqualTo("2011-11-13T01:00");
-    }
 
-    private static Event generateEvent() {
-        DateTime startDate = new DateTime("2011-11-11");
-        EventDateTime eventStartDate = new EventDateTime();
-        eventStartDate.setDateTime(startDate);
-
-        DateTime endDate = new DateTime("2011-11-13");
-        EventDateTime eventEndDate = new EventDateTime();
-        eventEndDate.setDateTime(endDate);
-
-        Event googleEvent = new Event();
-        googleEvent.setStart(eventStartDate);
-        googleEvent.setEnd(eventEndDate);
-        googleEvent
-            .setDescription(String.format(DescriptionParser.DESCRIPTION_PATTERN, "  Physics II ",
-                "  Ass. Prof. Leader  ", " 111 222 333  "));
-
-        return googleEvent;
+        // bleh, Google's DateTime always consider timezone
+        assertThat(ZonedDateTime.of(event.getStartDate(), AppUtils.DEFAULT_TIME_ZONE)
+            .format(ISO_OFFSET_DATE_TIME))
+            .isEqualTo(googleEvent.getStart().getDateTime().toStringRfc3339());
+        assertThat(ZonedDateTime.of(event.getEndDate(), AppUtils.DEFAULT_TIME_ZONE)
+            .format(ISO_OFFSET_DATE_TIME))
+            .isEqualTo(googleEvent.getEnd().getDateTime().toStringRfc3339());
     }
 }

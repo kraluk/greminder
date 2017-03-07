@@ -5,6 +5,7 @@ import com.kraluk.greminder.calendar.model.CalendarEvent;
 
 import org.junit.Test;
 
+import static com.kraluk.greminder.util.AppUtils.GOOGLE_CALENDAR_DESCRIPTION_PATTERN;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
@@ -18,7 +19,7 @@ public class DescriptionParserTests {
     @Test
     public void testShouldParseProperly() {
         String referenceDescription =
-            String.format(DescriptionParser.DESCRIPTION_PATTERN, "Physics", "Professor Leader",
+            String.format(GOOGLE_CALENDAR_DESCRIPTION_PATTERN, "Physics", "Professor Leader",
                 "111222333");
 
         CalendarEvent event = DescriptionParser.parse(referenceDescription);
@@ -32,7 +33,7 @@ public class DescriptionParserTests {
     @Test
     public void testShouldParseProperlyWithAdditionalSpaces() {
         String referenceDescription =
-            String.format(DescriptionParser.DESCRIPTION_PATTERN, "  Physics II ",
+            String.format(GOOGLE_CALENDAR_DESCRIPTION_PATTERN, "  Physics II ",
                 "  Ass. Prof. Leader  ", " 111 222 333  ");
 
         CalendarEvent event = DescriptionParser.parse(referenceDescription);
@@ -48,7 +49,7 @@ public class DescriptionParserTests {
         CalendarEvent originalEvent = new CalendarEvent();
 
         String referenceDescription =
-            String.format(DescriptionParser.DESCRIPTION_PATTERN, "Physics", "Professor Leader",
+            String.format(GOOGLE_CALENDAR_DESCRIPTION_PATTERN, "Physics", "Professor Leader",
                 "111222333");
 
         CalendarEvent event = DescriptionParser.parse(referenceDescription, originalEvent);

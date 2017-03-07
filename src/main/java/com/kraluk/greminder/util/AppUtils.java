@@ -13,4 +13,6 @@ import java.time.ZoneId;
 public final class AppUtils {
 
     public static final ZoneId DEFAULT_TIME_ZONE = ZoneId.of("Europe/Warsaw");
+
+    public static final String GOOGLE_CALENDAR_DESCRIPTION_PATTERN = "%s|%s|%s";
 }
