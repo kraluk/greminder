@@ -2,15 +2,16 @@ package com.kraluk.greminder.sms.sender;
 
 import com.google.common.base.Strings;
 import com.kraluk.greminder.sms.exception.SmsSendingException;
-import com.kraluk.greminder.test.base.AbstractNonCalendarRelatedTests;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
+import static com.kraluk.greminder.util.AppProfile.TEST;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertNotNull;
 
@@ -22,7 +23,8 @@ import static org.junit.Assert.assertNotNull;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @WebAppConfiguration
-public class SmsSenderIntegrationTests extends AbstractNonCalendarRelatedTests {
+@ActiveProfiles(TEST)
+public class SmsSenderIntegrationTests {
 
     @Autowired
     private SmsSender smsSender;
