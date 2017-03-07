@@ -1,6 +1,5 @@
 package com.kraluk.greminder.rest;
 
-import com.kraluk.greminder.test.base.AbstractNonCalendarRelatedTests;
 import com.kraluk.greminder.util.Version;
 
 import org.junit.Before;
@@ -9,6 +8,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
@@ -16,6 +16,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import java.nio.charset.Charset;
 
+import static com.kraluk.greminder.util.AppProfile.TEST;
 import static org.hamcrest.core.StringContains.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -30,7 +31,8 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @WebAppConfiguration
-public class MaintenanceResourceIntegrationTests extends AbstractNonCalendarRelatedTests {
+@ActiveProfiles(TEST)
+public class MaintenanceResourceIntegrationTests {
 
     private static final MediaType CONTENT_TYPE =
         new MediaType(MediaType.TEXT_PLAIN.getType(),
