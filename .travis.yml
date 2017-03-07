@@ -21,7 +21,6 @@ script:
   - ./gradlew clean
   - ./gradlew build --info --stacktrace
   - ./gradlew jacocoTestReport
-  - cat /home/travis/build/kraluk/greminder/build/reports/tests/test/index.html
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
