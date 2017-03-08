@@ -38,7 +38,7 @@ public interface SmsSender {
                     String.format("Exceeded character limit (%s) per message!", SMS_SIZE_LIMIT));
             })),
 
-            Case($(), () -> null) // bleh, the simplest solution to do nothing?
+            Case($(), () -> Void.TYPE) // bleh, the simplest solution to do nothing?
         );
     }
 }
