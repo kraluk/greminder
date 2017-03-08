@@ -24,7 +24,7 @@ public class MessageBuilder {
 
     @Autowired
     public MessageBuilder(@Value("${sms.message.template}") String messageTemplate) {
-        checkTemplatePattern(messageTemplate);
+        validateTemplatePattern(messageTemplate);
 
         this.messageTemplate = messageTemplate;
     }
@@ -37,7 +37,7 @@ public class MessageBuilder {
             event.getStartDate().toLocalTime());
     }
 
-    private static void checkTemplatePattern(String messageTemplate) {
+    private static void validateTemplatePattern(String messageTemplate) {
         if (Strings.isNullOrEmpty(messageTemplate)) {
             throw new SmsConfigurationException("Message template cannot be null or empty!");
         }

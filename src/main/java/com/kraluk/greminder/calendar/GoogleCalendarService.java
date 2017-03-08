@@ -20,8 +20,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.annotation.PostConstruct;
-
 import javaslang.control.Try;
 
 import static com.kraluk.greminder.util.AppProfile.PRODUCTION;
@@ -45,11 +43,6 @@ class GoogleCalendarService implements CalendarService {
                                  @Value("${calendar.name}") String calendarName) {
         this.calendar = calendar;
         this.calendarName = calendarName;
-    }
-
-    @PostConstruct
-    public void init() {
-        log.debug("Instance created.");
     }
 
     @Override
