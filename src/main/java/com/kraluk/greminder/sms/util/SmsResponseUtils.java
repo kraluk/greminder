@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
  * @author lukasz
  */
 @UtilityClass
-public class SmsResponseUtils {
+public final class SmsResponseUtils {
     private static final String JOIN_DELIMITER = "; ";
     private static final String PRETTY_PATTERN = "Number: '%s', Status: '%s'";
 

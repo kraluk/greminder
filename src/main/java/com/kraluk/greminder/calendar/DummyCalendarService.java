@@ -25,7 +25,7 @@ import static com.kraluk.greminder.util.AppProfile.TEST;
 @Service
 @Profile({DEVELOPMENT, TEST})
 @Slf4j
-public class DummyCalendarService implements CalendarService {
+class DummyCalendarService implements CalendarService {
 
     @PostConstruct
     public void init() {

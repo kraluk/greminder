@@ -2,6 +2,7 @@ package com.kraluk.greminder.calendar;
 
 import com.google.api.client.util.DateTime;
 import com.google.api.services.calendar.Calendar;
+import com.google.api.services.calendar.model.Event;
 import com.google.api.services.calendar.model.Events;
 import com.kraluk.greminder.calendar.model.CalendarEvent;
 import com.kraluk.greminder.calendar.util.EventMapper;
@@ -59,6 +60,10 @@ class GoogleCalendarService implements CalendarService {
         DateTime maxTime = new DateTime(
             currentDate.toInstant().plus(DEFAULT_HOUR_INTERVAL, ChronoUnit.HOURS).toEpochMilli());
 
+        log.info(
+            "Attempting to obtain events for calendar '{}' for time period between '{}' and '{}'",
+            calendarName, minTime, maxTime);
+
         Events events = Try.of(() -> calendar.events()
             .list(calendarName)
             .setTimeMin(minTime)
@@ -66,7 +71,11 @@ class GoogleCalendarService implements CalendarService {
             .execute()
         ).getOrElseThrow(e -> new GreminderException("Unable to obtain Calendar's events!", e));
 
-        return events.getItems()
+        List<Event> items = events.getItems();
+
+        log.info("Successfully obtained '{}' events.", items.size());
+
+        return items
             .stream()
             .map(EventMapper::map)
             .collect(Collectors.toList());

@@ -15,4 +15,16 @@ public final class AppProfile {
     public static final String TEST = "test";
 
     public static final String PRODUCTION = "prod";
+
+    /**
+     * Application's features
+     */
+    public static class AppFeature {
+
+        public static final String SCHEDULER = "scheduler";
+
+        public static final String CALEDAR = "calendar";
+
+        public static final String MESSAGING = "messaging";
+    }
 }
