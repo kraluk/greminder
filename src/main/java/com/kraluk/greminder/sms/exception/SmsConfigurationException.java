@@ -9,6 +9,10 @@ import com.kraluk.greminder.common.exception.GreminderException;
  */
 public class SmsConfigurationException extends GreminderException {
 
+    public SmsConfigurationException(String s) {
+        super(s);
+    }
+
     public SmsConfigurationException(String s, Throwable throwable) {
         super(s, throwable);
     }

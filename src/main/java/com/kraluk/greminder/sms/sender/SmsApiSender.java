@@ -29,7 +29,6 @@ import static com.kraluk.greminder.util.AppProfile.PRODUCTION;
 @Slf4j
 class SmsApiSender implements SmsSender {
     private static final String SMS_TYPE = "ECO";
-    private static final String SMS_TEMPLATE = "[Reminder] %s";
 
     private final SmsFactory smsFactory;
 
@@ -38,11 +37,10 @@ class SmsApiSender implements SmsSender {
         return Try.of(() -> {
                 log.info("Attempting to send a message to '{}'", to);
 
-                String text = String.format(SMS_TEMPLATE, content);
-                checkMessageSize(text);
+                checkMessageSize(content);
 
                 SMSSend action = smsFactory.actionSend()
-                    .setText(text)
+                    .setText(content)
                     .setTo(to)
                     .setSender(SMS_TYPE);
 
