@@ -31,7 +31,7 @@ public class GoogleCalendarServiceTests {
     private Events events;
     private Calendar.Events.List calendarEventsList;
 
-    private GoogleCalendarService calendarService;
+    private CalendarService calendarService;
 
     @Before
     public void setUp() throws IOException {
