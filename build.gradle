@@ -64,7 +64,7 @@ dependencies {
     // Google Calendar API
     compile group: 'com.google.api-client', name: 'google-api-client', version: '1.22.0'
     compile group: 'com.google.oauth-client', name: 'google-oauth-client-jetty', version: '1.22.0'
-    compile group: 'com.google.apis', name: 'google-api-services-calendar', version: 'v3-rev236-1.22.0'
+    compile group: 'com.google.apis', name: 'google-api-services-calendar', version: 'v3-rev237-1.22.0'
 
     // MapStruct
     compile group: 'org.mapstruct', name: 'mapstruct-jdk8', version: '1.2.0.Beta1'
@@ -80,7 +80,7 @@ dependencies {
 
     // Test stuff
     testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test'
-    testCompile group: 'org.mockito', name: 'mockito-core', version: '2.7.14'
+    testCompile group: 'org.mockito', name: 'mockito-core', version: '2.7.17'
     testCompile group: 'org.assertj', name: 'assertj-core', version: '3.6.2'
 
 }
@@ -90,5 +90,5 @@ bootRun {
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '3.4'
+    gradleVersion = '3.4.1'
 }
