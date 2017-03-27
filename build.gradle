@@ -24,6 +24,8 @@ apply plugin: 'jacoco'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'net.ltgt.apt'
 
+apply plugin: VersionClassPlugin
+
 jar {
     baseName = 'greminder'
     version = '0.0.1-SNAPSHOT'
@@ -45,7 +47,7 @@ repositories {
 
 jacocoTestReport {
     reports {
-        xml.enabled true
+        xml.enabled = true
         html.enabled = true
     }
 }
@@ -67,8 +69,8 @@ dependencies {
     compile group: 'com.google.apis', name: 'google-api-services-calendar', version: 'v3-rev237-1.22.0'
 
     // MapStruct
-    compile group: 'org.mapstruct', name: 'mapstruct-jdk8', version: '1.2.0.Beta1'
-    apt group: 'org.mapstruct', name: 'mapstruct-processor', version: '1.2.0.Beta1'
+    compile group: 'org.mapstruct', name: 'mapstruct-jdk8', version: '1.2.0.Beta2'
+    apt group: 'org.mapstruct', name: 'mapstruct-processor', version: '1.2.0.Beta2'
 
     // Lombok
     compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.16.14'
@@ -80,9 +82,14 @@ dependencies {
 
     // Test stuff
     testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test'
-    testCompile group: 'org.mockito', name: 'mockito-core', version: '2.7.17'
+    testCompile group: 'org.mockito', name: 'mockito-core', version: '2.7.18'
     testCompile group: 'org.assertj', name: 'assertj-core', version: '3.6.2'
 
+}
+
+versionClass {
+    version = project.version
+    packageName = 'com.kraluk.greminder.util'
 }
 
 bootRun {
@@ -91,4 +98,74 @@ bootRun {
 
 task wrapper(type: Wrapper) {
     gradleVersion = '3.4.1'
+}
+
+// ----- Version plugin (to externalize!)
+
+import java.time.LocalDateTime
+
+class VersionClassPlugin implements Plugin<Project> {
+
+    void apply(Project project) {
+
+        project.extensions.add("versionClass", VersionClassConfiguration)
+
+        def javaGenSrc = new File(project.buildDir, "generated-sources")
+
+        def makeVersionClassTask = project.task("makeVersionClass") << {
+            def versionInfoPackagePath = "${project.versionClass.packageName}".replace('.', '/')
+            def versionClassFile = new File(javaGenSrc, "${versionInfoPackagePath}/Version.java")
+            versionClassFile.parentFile.mkdirs()
+            versionClassFile.withWriter { content ->
+                content.write(
+
+/** Start VersionClass Template */
+                        """
+package ${project.versionClass.packageName};
+
+/**
+ * Version info class provides some build meta informations.
+ */
+public final class Version {
+
+    public static final String VERSION = "${project.versionClass.version}";
+
+    public static final String NAME = "${project.name}";
+
+    public static final String GROUP = "${project.group}";
+
+    public static final String BUILD_DATE = "${LocalDateTime.now()}";
+
+    private Version() {
+    }
+}
+"""
+/** End VersionClass Template */
+
+                )
+            }
+        }
+        // Inputs for the task
+        makeVersionClassTask.inputs.property("project.version", project.version)
+        makeVersionClassTask.inputs.property("project.name", project.name)
+        makeVersionClassTask.inputs.property("project.group", project.group)
+        // Outputs of the task
+        makeVersionClassTask.outputs.dir javaGenSrc
+        // Add the javaGenSrc folder as source set
+        project.sourceSets {
+            main {
+                java {
+                    srcDir "${javaGenSrc}"
+                }
+            }
+        }
+        // Update the task dependencies
+        project.tasks.compileJava.dependsOn("makeVersionClass")
+    }
+
+}
+
+class VersionClassConfiguration {
+    String version = "undefined"
+    String packageName = "undefined"
 }

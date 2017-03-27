@@ -4,8 +4,7 @@ import com.kraluk.greminder.util.Version;
 
 import lombok.extern.slf4j.Slf4j;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Optional;
@@ -26,7 +25,7 @@ public class MaintenanceResource {
     // Just for DEV purposes, in prod environment could be potentially dangerous
     private final AtomicLong counter = new AtomicLong(0);
 
-    @RequestMapping(path = "/ping", method = RequestMethod.GET)
+    @GetMapping("/ping")
     public String ping(HttpServletRequest request) {
         Optional<String> ipAddress = Optional.ofNullable(request.getHeader(FORWARD_HEADER));
 
@@ -37,7 +36,7 @@ public class MaintenanceResource {
         return String.format("pong (%s)", pong);
     }
 
-    @RequestMapping(path = "/version", method = RequestMethod.GET)
+    @GetMapping("/version")
     public String version() {
         return Version.VERSION;
     }
