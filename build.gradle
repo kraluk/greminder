@@ -17,7 +17,6 @@ buildscript {
 }
 
 apply plugin: 'java'
-apply plugin: 'groovy'
 apply plugin: 'idea'
 apply plugin: 'jacoco'
 
@@ -28,7 +27,7 @@ apply plugin: VersionClassPlugin
 
 jar {
     baseName = 'greminder'
-    version = '0.0.1-SNAPSHOT'
+    version = '1.0.0-SNAPSHOT'
 }
 
 group = 'com.kraluk.greminder'
@@ -52,6 +51,22 @@ jacocoTestReport {
     }
 }
 
+sourceSets {
+    integration {
+        java.srcDir project.file('src/integration/java')
+        groovy.srcDir project.file('src/integration/groovy')
+
+        resources.srcDir project.file('src/integration/resources')
+        resources.srcDir project.sourceSets.test.resources
+        resources.srcDir project.sourceSets.main.resources
+
+        compileClasspath = project.sourceSets.main.output +
+                project.sourceSets.test.output +
+                project.configurations.testRuntime
+        runtimeClasspath = output + compileClasspath
+    }
+}
+
 dependencies {
 
     // Spring stuff
@@ -59,14 +74,14 @@ dependencies {
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-web'
 
     // Utils
-    compile group: 'io.javaslang', name: 'javaslang', version: '2.0.5'
+    compile group: 'io.javaslang', name: 'javaslang', version: '2.0.6'
     compile group: 'com.google.guava', name: 'guava', version: '21.0'
     compile group: 'pl.smsapi', name: 'smsapi-lib', version: '2.3'
 
     // Google Calendar API
     compile group: 'com.google.api-client', name: 'google-api-client', version: '1.22.0'
     compile group: 'com.google.oauth-client', name: 'google-oauth-client-jetty', version: '1.22.0'
-    compile group: 'com.google.apis', name: 'google-api-services-calendar', version: 'v3-rev239-1.22.0'
+    compile group: 'com.google.apis', name: 'google-api-services-calendar', version: 'v3-rev243-1.22.0'
 
     // MapStruct
     compile group: 'org.mapstruct', name: 'mapstruct-jdk8', version: '1.2.0.Beta2'
@@ -82,7 +97,7 @@ dependencies {
 
     // Test stuff
     testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test'
-    testCompile group: 'org.mockito', name: 'mockito-core', version: '2.7.19'
+    testCompile group: 'org.mockito', name: 'mockito-core', version: '2.7.22'
     testCompile group: 'org.assertj', name: 'assertj-core', version: '3.6.2'
 
 }
@@ -96,8 +111,40 @@ bootRun {
     systemProperties System.properties
 }
 
+test {
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+        exceptionFormat = 'full'
+    }
+}
+
+project.configurations {
+    integration {
+        extendsFrom project.configurations.testRuntime
+        description = 'Dependencies for integration tests'
+        transitive = true
+        visible = true
+    }
+}
+
+tasks.withType(JavaCompile) { options.encoding = 'UTF-8' }
+
 task wrapper(type: Wrapper) {
-    gradleVersion = '3.4.1'
+    gradleVersion = '3.5'
+}
+
+task integrationTest(type: Test) {
+    testClassesDir = project.sourceSets.integration.output.classesDir
+    classpath = project.sourceSets.main.output +
+            project.sourceSets.test.output +
+            project.sourceSets.integration.runtimeClasspath +
+            project.configurations.testRuntime +
+            project.configurations.integrationRuntime
+
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+        exceptionFormat = 'full'
+    }
 }
 
 // ----- Version plugin (to externalize!)
