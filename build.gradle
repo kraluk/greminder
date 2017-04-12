@@ -54,7 +54,6 @@ jacocoTestReport {
 sourceSets {
     integration {
         java.srcDir project.file('src/integration/java')
-        groovy.srcDir project.file('src/integration/groovy')
 
         resources.srcDir project.file('src/integration/resources')
         resources.srcDir project.sourceSets.test.resources
