@@ -23,6 +23,8 @@ public final class AppProfile {
 
         public static final String SCHEDULER = "scheduler";
 
+        public static final String SCHEDULER_DISABLED = "scheduler-disabled";
+
         public static final String CALEDAR = "calendar";
 
         public static final String MESSAGING = "messaging";

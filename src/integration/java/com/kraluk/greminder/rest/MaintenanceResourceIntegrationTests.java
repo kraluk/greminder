@@ -1,5 +1,6 @@
 package com.kraluk.greminder.rest;
 
+import com.kraluk.greminder.util.AppProfile.AppFeature;
 import com.kraluk.greminder.util.Version;
 
 import org.junit.Before;
@@ -31,7 +32,7 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @WebAppConfiguration
-@ActiveProfiles(TEST)
+@ActiveProfiles({TEST, AppFeature.SCHEDULER_DISABLED})
 public class MaintenanceResourceIntegrationTests {
 
     private static final MediaType CONTENT_TYPE =

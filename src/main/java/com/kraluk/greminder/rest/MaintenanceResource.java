@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Optional;
-import java.util.concurrent.atomic.AtomicLong;
+import java.util.concurrent.atomic.LongAdder;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -23,14 +23,15 @@ public class MaintenanceResource {
     private static final String FORWARD_HEADER = "X-FORWARDED-FOR";
 
     // Just for DEV purposes, in prod environment could be potentially dangerous
-    private final AtomicLong counter = new AtomicLong(0);
+    private final LongAdder counter = new LongAdder();
 
     @GetMapping("/ping")
     public String ping(HttpServletRequest request) {
         Optional<String> ipAddress = Optional.ofNullable(request.getHeader(FORWARD_HEADER));
 
         log.debug("Invoked by '{}'", ipAddress.orElse(request.getRemoteAddr()));
-        long pong = counter.addAndGet(1);
+        counter.increment();
+        long pong = counter.longValue();
         log.debug("Returning pong '{}'...", pong);
 
         return String.format("pong (%s)", pong);
