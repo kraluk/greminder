@@ -1,7 +1,7 @@
 buildscript {
 
     ext {
-        springBootVersion = '1.5.2.RELEASE'
+        springBootVersion = '1.5.3.RELEASE'
     }
 
     repositories {
@@ -12,7 +12,7 @@ buildscript {
 
     dependencies {
         classpath group: 'org.springframework.boot', name: 'spring-boot-gradle-plugin', version: "${springBootVersion}"
-        classpath group: 'net.ltgt.gradle', name: 'gradle-apt-plugin', version: '0.9'
+        classpath group: 'net.ltgt.gradle', name: 'gradle-apt-plugin', version: '0.10'
     }
 }
 
@@ -80,7 +80,7 @@ dependencies {
     // Google Calendar API
     compile group: 'com.google.api-client', name: 'google-api-client', version: '1.22.0'
     compile group: 'com.google.oauth-client', name: 'google-oauth-client-jetty', version: '1.22.0'
-    compile group: 'com.google.apis', name: 'google-api-services-calendar', version: 'v3-rev243-1.22.0'
+    compile group: 'com.google.apis', name: 'google-api-services-calendar', version: 'v3-rev244-1.22.0'
 
     // MapStruct
     compile group: 'org.mapstruct', name: 'mapstruct-jdk8', version: '1.2.0.Beta2'
@@ -92,12 +92,12 @@ dependencies {
 
     // Runtime dev tools
     runtime group: 'org.springframework.boot', name: 'spring-boot-devtools'
-    runtime group: 'com.squareup', name: 'javapoet', version: '1.8.0'
+    runtime group: 'com.squareup', name: 'javapoet', version: '1.9.0'
 
     // Test stuff
     testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test'
     testCompile group: 'org.mockito', name: 'mockito-core', version: '2.7.22'
-    testCompile group: 'org.assertj', name: 'assertj-core', version: '3.6.2'
+    testCompile group: 'org.assertj', name: 'assertj-core', version: '3.7.0'
 
 }
 
