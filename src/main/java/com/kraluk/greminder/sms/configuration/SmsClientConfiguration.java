@@ -10,7 +10,7 @@ import pl.smsapi.Client;
 import pl.smsapi.api.SmsFactory;
 import pl.smsapi.exception.ClientException;
 
-import javaslang.control.Try;
+import io.vavr.control.Try;
 
 /**
  * SMS Gateway Custom Client (REST-based) Configuration

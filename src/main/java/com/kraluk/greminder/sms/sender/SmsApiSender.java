@@ -14,7 +14,7 @@ import pl.smsapi.api.SmsFactory;
 import pl.smsapi.api.action.sms.SMSSend;
 import pl.smsapi.api.response.SendStatusResponse;
 
-import javaslang.control.Try;
+import io.vavr.control.Try;
 
 import static com.kraluk.greminder.util.AppProfile.PRODUCTION;
 

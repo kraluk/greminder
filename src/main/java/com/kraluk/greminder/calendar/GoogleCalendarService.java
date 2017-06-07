@@ -20,7 +20,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javaslang.control.Try;
+import io.vavr.control.Try;
 
 import static com.kraluk.greminder.util.AppProfile.PRODUCTION;
 
