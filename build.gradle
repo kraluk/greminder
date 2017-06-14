@@ -1,7 +1,7 @@
 buildscript {
 
     ext {
-        springBootVersion = '1.5.3.RELEASE'
+        springBootVersion = '1.5.4.RELEASE'
     }
 
     repositories {
@@ -13,6 +13,7 @@ buildscript {
     dependencies {
         classpath group: 'org.springframework.boot', name: 'spring-boot-gradle-plugin', version: "${springBootVersion}"
         classpath group: 'net.ltgt.gradle', name: 'gradle-apt-plugin', version: '0.10'
+        classpath group: 'com.ofg', name: 'uptodate-gradle-plugin', version: '1.6.3'
     }
 }
 
@@ -22,6 +23,7 @@ apply plugin: 'jacoco'
 
 apply plugin: 'org.springframework.boot'
 apply plugin: 'net.ltgt.apt'
+apply plugin: 'com.ofg.uptodate'
 
 apply plugin: VersionClassPlugin
 
@@ -111,6 +113,12 @@ bootRun {
     systemProperties System.properties
 }
 
+uptodate {
+    connectionTimeout = 10000
+}
+
+check.dependsOn 'uptodate'
+
 test {
     testLogging {
         events 'passed', 'skipped', 'failed'
@@ -130,7 +138,7 @@ project.configurations {
 tasks.withType(JavaCompile) { options.encoding = 'UTF-8' }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '3.5'
+    gradleVersion = '4.0'
 }
 
 task integrationTest(type: Test) {
